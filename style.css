@@ -4,13 +4,18 @@ body {
 }
 
 div {
-  width: 20%;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+input {
+  width: 50%;
 }
 
 button {
-  width: 100%;
-  margin: 10px 0px 5px 0px;
+  width: 25%;
+  margin: 10px 0% 5px 0%;
 }
