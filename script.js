@@ -1,18 +1,8 @@
-const MoodContractAddress = 0xa4b2fbd4c3127a6c5ea59c7fd906a2524007fe72;
+// Ethereum contract address (hexadecimal with "0x" prefix)
+const MoodContractAddress = "0xc78d04affffbb80e45f44cedafe5c1a86dfdd6df";
+// Ethereum contract ABI (Interface of the contract)
 const MoodContractABI = [
-  {
-    inputs: [],
-    name: "getMood",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
+  // Set mood
   {
     inputs: [
       {
@@ -26,14 +16,30 @@ const MoodContractABI = [
     stateMutability: "nonpayable",
     type: "function",
   },
+  // Get mood
+  {
+    inputs: [],
+    name: "getMood",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
 ];
 
-// use Ethers to assign them values
+// Ethers contract and signer initialization
 let MoodContract = undefined;
 let signer = undefined;
 
+// Web3Provider initialization using Ethers
 const provider = new ethers.providers.Web3Provider(window.ethereum, "sepolia");
 
+// Request Ethereum accounts and set up contract after successful authorization
 provider.send("eth_requestAccounts", []).then(() => {
   provider.listAccounts().then((accounts) => {
     signer = provider.getSigner(accounts[0]);
@@ -45,13 +51,18 @@ provider.send("eth_requestAccounts", []).then(() => {
   });
 });
 
+// Asynchronous function to get mood from the contract and update the UI
 async function getMood() {
   const mood = await MoodContract.getMood();
-  document.getElementById("showMood").innerText = `Your Mood: ${mood}`;
+  // Display mood on the UI or indicate if not set
+  const moodText = mood ? `Your Mood: ${mood}` : "Your Mood: (not set)";
+  document.getElementById("showMood").innerText = moodText;
   console.log(mood);
 }
 
+// Asynchronous function to set mood in the contract
 async function setMood() {
   const mood = document.getElementById("mood").value;
   await MoodContract.setMood(mood);
+  console.log(mood);
 }
