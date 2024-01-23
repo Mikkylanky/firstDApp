@@ -57,12 +57,12 @@ async function getMood() {
   // Display mood on the UI or indicate if not set
   const moodText = mood ? `Your Mood: ${mood}` : "Your Mood: (not set)";
   document.getElementById("showMood").innerText = moodText;
-  console.log(mood);
+  alert(mood);
 }
 
 // Asynchronous function to set mood in the contract
 async function setMood() {
   const mood = document.getElementById("mood").value;
   await MoodContract.setMood(mood);
-  console.log(mood);
+  alert(mood);
 }
